@@ -1,16 +1,13 @@
-<<<<<<< HEAD
-# vue-admin
-=======
 # tool-ft
-**需要在每季度1号进行对应依赖和根据原库进行更新(npm-check-updates、npm audit fix、npm、node)**   
-   
-   
+**需要在每季度1号进行对应依赖和根据原库进行更新(npm-check-updates、npm audit fix、npm、node)**
+
+
 ## 介绍
 一个配置相对复杂的vue项目的demo，内容比较少，作为demo参照，实际使用中按照自己的需求自行增删，有好的修改意见经商量确定后进行更新。    
 这个项目是参照<a href="https://github.com/PanJiaChen/vue-element-admin">vue-element-admin</a>项目修改来的，有兴趣可以了解。   
-分为三个分支，master(h5-demo)、web_admin、web_normal，分别对应h5模板、pc管理模板、pc普通模板，另外两个模板在使用时进行补全，目前只有h5-demo   
-    
-    
+分为三个分支，master(h5-demo)、web_admin、web_normal，分别对应h5模板、pc管理模板、pc普通模板，另外两个模板在使用时进行补全，目前只有h5-demo
+
+
 ## 目录结构及相关功能介绍
 ```bash
 整体目录结构   
@@ -155,40 +152,40 @@ major.minor.patch(不向前兼容的大版本迭代.向前兼容的较大版本�
 
 
 ## 相关技术点或小组件
-1. vue、vuex、vue-router   
-2. mock   
-3. axios的封装   
-4. layout的外壳   
-5. permission的封装   
-6. .editorconfig在不同编辑器的正常显示   
-7. eslint   可以配合husky和lint-staged使用，在git commit时触发检查staged状态的代码的eslint   
-8. jsconfig.json vscode的js项目显示定义   
-9. postcss  js将css转为AST，插件处理AST   
-10. tree-cli的使用   
-11. plop  定义组件等模板，命令生成新组件等   
-12. normalize.css   该组件重置不同浏览器默认显示样式   
-13. husky、lint-staged、commitlint、commitizen：git提交相关规范工具，更新husky的配置需要重新安装husky   
-14. git flow   
-15. 使用nrm管理npm的registry源   
-16. 使用npm-check-updates进行npm依赖更新管理   
-17. 使用npm audit检查依赖安全性，使用npm audit fix修复   
-18. 默认站点使用cache和cdn，html no-cache   
-19. history模式，非该模式中#会影响后台解析，但是需要后台支持   
+1. vue、vuex、vue-router
+2. mock
+3. axios的封装
+4. layout的外壳
+5. permission的封装
+6. .editorconfig在不同编辑器的正常显示
+7. eslint   可以配合husky和lint-staged使用，在git commit时触发检查staged状态的代码的eslint
+8. jsconfig.json vscode的js项目显示定义
+9. postcss  js将css转为AST，插件处理AST
+10. tree-cli的使用
+11. plop  定义组件等模板，命令生成新组件等
+12. normalize.css   该组件重置不同浏览器默认显示样式
+13. husky、lint-staged、commitlint、commitizen：git提交相关规范工具，更新husky的配置需要重新安装husky
+14. git flow
+15. 使用nrm管理npm的registry源
+16. 使用npm-check-updates进行npm依赖更新管理
+17. 使用npm audit检查依赖安全性，使用npm audit fix修复
+18. 默认站点使用cache和cdn，html no-cache
+19. history模式，非该模式中#会影响后台解析，但是需要后台支持
 
 
 ## 命名规范
-1. 常量：全大写，下划线分割单词  
-2. 变量：变量使用下划线命名法，单词之间使用下划线连接，前缀一般为形容词  
-3. 函数和方法：小驼峰命名法，前缀一般为动词  
-4. 类和构造函数：大写式驼峰命名法，所有单词首字母大写  
-5. 类的成员：公共属性和方法与普通变量和函数一样；私有属性和方法，前缀为下划线，后面跟变量和函数一样  
-6. 注释分单行注释和多行注释、函数注释  
-7. import应该放在最顶层，引入的组件名使用大写驼峰命名法  
-8. vue中methods：方法命名同函数命名  
-9. vue中组件命名大驼峰，且应该为多个单词，html的组件都是单个单词；组件命名前缀为功能归属如page或者创建者tw，父子组件命名需要强相关  
-10. vue中组件的props命名同变量  
-11. vue中页面的文件名字应该使用中横线连接  
-12. vue中class名字使用下划线命名  
+1. 常量：全大写，下划线分割单词
+2. 变量：变量使用下划线命名法，单词之间使用下划线连接，前缀一般为形容词
+3. 函数和方法：小驼峰命名法，前缀一般为动词
+4. 类和构造函数：大写式驼峰命名法，所有单词首字母大写
+5. 类的成员：公共属性和方法与普通变量和函数一样；私有属性和方法，前缀为下划线，后面跟变量和函数一样
+6. 注释分单行注释和多行注释、函数注释
+7. import应该放在最顶层，引入的组件名使用大写驼峰命名法
+8. vue中methods：方法命名同函数命名
+9. vue中组件命名大驼峰，且应该为多个单词，html的组件都是单个单词；组件命名前缀为功能归属如page或者创建者tw，父子组件命名需要强相关
+10. vue中组件的props命名同变量
+11. vue中页面的文件名字应该使用中横线连接
+12. vue中class名字使用下划线命名
 
 ```
 常用命名动词
@@ -265,15 +262,14 @@ git config --global core.safecrlf true
 
 
 ## 埋点规范 <a href="https://wiki.zozo.cn/pages/viewpage.action?pageId=11109190">参照</a>
-1. 应该包括主动行为和被动行为，目前先上报大部分主动行为，之后补充被动行为。   
+1. 应该包括主动行为和被动行为，目前先上报大部分主动行为，之后补充被动行为。
 
-2. 对于所有的H5页面默认上报所有的基础事件，对于特殊逻辑需要增加相关性和其他处理；这些基础事件包括：站点访问、页面访问、页面离开、站点离开、用户的点击、滑动（简单的轮播图的滑动，需要补充所有的滑动操作）、无限加载时触发新的请求    
+2. 对于所有的H5页面默认上报所有的基础事件，对于特殊逻辑需要增加相关性和其他处理；这些基础事件包括：站点访问、页面访问、页面离开、站点离开、用户的点击、滑动（简单的轮播图的滑动，需要补充所有的滑动操作）、无限加载时触发新的请求
 
-3. 动作的根元素或者事件命名默认规则：页面名-语义名[-次序-ID]  使用spm替代    
+3. 动作的根元素或者事件命名默认规则：页面名-语义名[-次序-ID]  使用spm替代
 
 4. 需要完善：  
-1、为了准确的上报，需要对用户动作的细化做些工作，监听用户的所有动作，并合理上报   
-2、所有的事件的spm完善或者其他形式的完善相关元素信息   
-3、被动行为的补充   
-4、缺少触发下页数据的行为上报   
->>>>>>> fc00e70 (feat(init): init)
+   1、为了准确的上报，需要对用户动作的细化做些工作，监听用户的所有动作，并合理上报   
+   2、所有的事件的spm完善或者其他形式的完善相关元素信息   
+   3、被动行为的补充   
+   4、缺少触发下页数据的行为上报   
