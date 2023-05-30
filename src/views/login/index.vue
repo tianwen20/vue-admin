@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">CHAT GPT</h3>
+        <h3 class="title">BatGPT</h3>
       </div>
 
       <el-form-item prop="account">
@@ -67,8 +67,8 @@ export default {
     }
     return {
       loginForm: {
-        account: '18073461585',
-        password: '123456'
+        account: '',
+        password: ''
       },
       loginRules: {
         account: [{ required: true, trigger: 'blur', validator: validateAccount }],

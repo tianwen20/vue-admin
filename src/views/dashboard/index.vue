@@ -184,7 +184,7 @@ export default {
       if (!data.minute_calls) return 0
       let res = 0
       data.minute_calls.forEach(item => {
-        res += item.num
+        res += parseInt(item.num)
       })
       return res
     },
@@ -192,7 +192,7 @@ export default {
       if (!data.minute_tokens) return 0
       let res = 0
       data.minute_tokens.forEach(item => {
-        res += item.num
+        res += parseInt(item.num)
       })
       return res
     },
