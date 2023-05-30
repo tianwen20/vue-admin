@@ -30,7 +30,6 @@
           >
             <template slot-scope="scope">
               <span v-if="scope.row.tbh" style="color: #f36b6b">临时黑名单</span>
-              <span v-else style="color: #3f9dfd">在线</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -40,8 +39,16 @@
           >
             <template slot-scope="scope">
               <span v-if="scope.row.gbh" style="color: #f36b6b">永久黑名单</span>
-              <span v-else style="color: #3f9dfd">在线</span>
             </template>
+          </el-table-column>
+          <el-table-column
+            prop="gbh"
+            label="在线状态"
+            width="100"
+          >
+            <template slot-scope="scope">
+              <spann v-if="!scope.row.gbh && !scope.row.tbh" style="color: #3f9dfd">在线</span>
+              </spann></template>
           </el-table-column>
           <el-table-column
             prop="total"
