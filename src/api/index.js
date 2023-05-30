@@ -1,24 +1,24 @@
 import request from '@/utils/request'
 
-export function botList(data) {
+export function botList(user_id, data) {
   return request({
-    url: '/chatbot/status',
+    url: '/status/' + user_id,
     method: 'post',
     data
   })
 }
 
-export function online(data) {
+export function online(user_id, data) {
   return request({
-    url: '/chatbot/api_key/online',
+    url: '/api_key/online/' + user_id,
     method: 'post',
     data
   })
 }
 
-export function offline(data) {
+export function offline(user_id, data) {
   return request({
-    url: '/chatbot/api_key/offline',
+    url: '/api_key/offline/' + user_id,
     method: 'post',
     data
   })

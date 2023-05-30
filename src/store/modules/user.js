@@ -1,18 +1,21 @@
 import { login } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
-import router, { resetRouter } from '@/router'
+import { getToken, setToken, removeToken, getUserId, setUserId, removeUserId } from '@/utils/auth'
 
 const state = {
   token: getToken(),
   name: '',
   avatar: '',
   description: '',
-  roles: []
+  roles: [],
+  user_id: getUserId()
 }
 
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_USER_ID: (state, user_id) => {
+    state.user_id = user_id
   },
   SET_DESCRIPTION: (state, description) => {
     state.description = description
@@ -41,6 +44,8 @@ const actions = {
         // 处理登录状态
         commit('SET_TOKEN', data.temp_access_key)
         setToken(data.temp_access_key)
+        commit('SET_USER_ID', data.user_id)
+        setUserId(data.user_id)
 
         // 一起处理个人信息
         const name = data.name
@@ -73,9 +78,11 @@ const actions = {
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
       commit('SET_TOKEN', '')
+      commit('SET_USER_ID', '')
       commit('SET_ROLES', [])
       commit('SET_INIT', false)
       removeToken()
+      removeUserId()
       resetRouter()
 
       dispatch('tagsView/delAllViews', null, { root: true })
@@ -87,31 +94,13 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
+      commit('SET_USER_ID', '')
       commit('SET_ROLES', [])
       commit('SET_INIT', false)
       removeToken()
+      removeUserId()
       resolve()
     })
-  },
-
-  // dynamically modify permissions
-  async changeRoles({ commit, dispatch }, role) {
-    const token = role + '-token'
-
-    commit('SET_TOKEN', token)
-    setToken(token)
-
-    const { roles } = await dispatch('getInfo')
-
-    resetRouter()
-
-    // generate accessible routes map based on roles
-    const accessRoutes = await dispatch('permission/generateRoutes', roles, { root: true })
-    // dynamically add accessible routes
-    router.addRoutes(accessRoutes)
-
-    // reset visited views and cached views
-    dispatch('tagsView/delAllViews', null, { root: true })
   }
 }
 

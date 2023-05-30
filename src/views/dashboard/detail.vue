@@ -1,12 +1,20 @@
 <template>
   <div class="container">
-    <div class="table">
+
+    <div class="chart">
+      <line-chart :chart-data="yData" :chart-cat="xData" :option="option" />
+    </div>
+
+    <div class="chart" style="margin-top: 80px">
+      <line-chart :chart-data="yData1" :chart-cat="xData1" :option="option1" />
+    </div>
+
+    <!--    <div class="table" style="margin-top: 100px">
       <el-table
         v-loading="loading"
         :data="tableData"
         border
         style="width: 100%"
-        height="calc(100vh - 320px)"
       >
         <el-table-column
           prop="bot_id"
@@ -36,182 +44,95 @@
           label="调用次数"
         />
       </el-table>
-    </div>
-
-    <!--    <div class="page">-->
-    <!--      <el-pagination :current-page="page_no" :page-count="total_page" @current-change="click_page" />-->
-    <!--    </div>-->
-
+    </div>-->
   </div>
 
 </template>
 
 <script>
-import { botList, online, offline } from '@/api/index'
-import { getToken } from '@/utils/auth'
-import { Message } from 'element-ui'
+import LineChart from './LineChart'
+import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    LineChart
+  },
   data() {
     return {
-      access_key: getToken(),
-      search_params: {
-        session_id: '',
-        access_key: getToken(),
-        bh: ''
+      xData: [],
+      yData: [],
+      xData1: [],
+      yData1: [],
+      option: {
+        series: [
+          {
+            name: 'api_key调用次数',
+            itemStyle: {
+              normal: {
+                color: '#FF005A',
+                lineStyle: {
+                  color: '#FF005A',
+                  width: 2
+                }
+              }
+            },
+            smooth: true,
+            type: 'line',
+            animationDuration: 2800,
+            animationEasing: 'cubicInOut'
+          }
+        ]
       },
-      loading: false,
-      tableData: [
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        },
-        {
-          bot_id: '东湖灵境',
-          apikey: 'asdaddadad',
-          bh: 1,
-          gbh: 0,
-          total: 1000,
-          resource_id: '12121212',
-          time: '最近一分钟'
-        }
-      ],
-      page_no: 1,
-      total_page: 0,
-      total_count: 0,
-
-      options: [
-        {
-          value: '',
-          label: '全部'
-        },
-        {
-          value: '1',
-          label: '黑名单'
-        }
-      ]
+      option1: {
+        series: [
+          {
+            name: 'token请求次数',
+            itemStyle: {
+              normal: {
+                color: '#FF005A',
+                lineStyle: {
+                  color: '#FF005A',
+                  width: 2
+                }
+              }
+            },
+            smooth: true,
+            type: 'line',
+            animationDuration: 2800,
+            animationEasing: 'cubicInOut'
+          }
+        ]
+      }
     }
   },
+  computed: {
+    ...mapGetters([
+      'table_data', 'show_data', 'show_api_key', 'show_proxy'
+    ])
+  },
   created() {
-    // this.search()
+    this.getChartData()
   },
   methods: {
-    click_page(page) {
-      if (!this.loading) {
-        this.page_no = page
-        this.search()
+    getChartData() {
+      let cur_data = []
+      if (this.show_data === 'api_key') {
+        cur_data = this.table_data['api_key_status'][this.show_api_key]
       }
-    },
-    search() {
-      if (this.loading) {
-        return
+      if (this.show_data === 'proxy') {
+        cur_data = this.table_data['proxy_status'][this.show_proxy]
       }
-      this.loading = true
 
-      botList({ ...this.search_params }).then(res => {
-        this.tableData = res.data
-      }).catch(err => {
-        console.log(err)
-      }).finally(() => {
-        this.loading = false
+      cur_data.minute_calls.reverse()
+      cur_data.minute_calls.forEach(item => {
+        this.xData.push(item.ds)
+        this.yData.push(item.num)
       })
-    },
-
-    online(data) {
-      online({ session_id: '', access_key: this.access_key, resource_id: data.resource_id }).then(res => {
-        Message.success('上线成功')
-      }).catch(err => {
-        console.log(err)
-        Message.error('上线失败')
+      cur_data.minute_tokens.reverse()
+      cur_data.minute_tokens.forEach(item => {
+        this.xData1.push(item.ds)
+        this.yData1.push(item.num)
       })
-    },
-    offline(data) {
-      offline({ session_id: '', access_key: this.access_key, resource_id: data.resource_id }).then(res => {
-        Message.success('下线成功')
-      }).catch(err => {
-        console.log(err)
-        Message.error('下线失败')
-      })
-    },
-    goDetail(data) {
-      this.$router.push({ path: '/dashboard/detail', query: { resource_id: data.resource_id }})
     }
   }
 }

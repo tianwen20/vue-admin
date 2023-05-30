@@ -20,6 +20,8 @@ import RightPanel from '@/components/RightPanel'
 import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
+import { botList } from '@/api'
+import { getToken, getUserId } from '@/utils/auth'
 
 export default {
   name: 'Layout',
@@ -49,9 +51,43 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      loading: false,
+      search_params: {
+        session_id: '',
+        access_key: getToken()
+      },
+      user_id: getUserId()
+    }
+  },
+  created() {
+    this.$store.dispatch('table/setShowApiKey', 0)
+    this.$store.dispatch('table/setShowProxy', 0)
+
+    // 定时获取最新的数据
+    this.search()
+  },
   methods: {
     handleClickOutside() {
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+    },
+    search() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
+
+      botList(this.user_id, { ...this.search_params }).then(res => {
+        this.$store.dispatch('table/setTableData', res.results)
+        setTimeout(() => {
+          this.search()
+        }, 1000 * 5)
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
+        this.loading = false
+      })
     }
   }
 }
