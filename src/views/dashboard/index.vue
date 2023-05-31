@@ -51,22 +51,22 @@
               </spann></template>
           </el-table-column>
           <el-table-column
-            prop="total"
+            prop="total_calls"
             label="调用次数"
             width="100"
           >
-            <template slot-scope="scope">
-              {{ getCallSum(scope.row) }}
-            </template>
+            <!--            <template slot-scope="scope">-->
+            <!--              {{ getCallSum(scope.row) }}-->
+            <!--            </template>-->
           </el-table-column>
           <el-table-column
-            prop="total"
+            prop="total_tokens"
             label="请求TOKEN次数"
             width="100"
           >
-            <template slot-scope="scope">
-              {{ getTokenSum(scope.row) }}
-            </template>
+            <!--            <template slot-scope="scope">-->
+            <!--              {{ getTokenSum(scope.row) }}-->
+            <!--            </template>-->
           </el-table-column>
           <el-table-column
             prop="tbh"
