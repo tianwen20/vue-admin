@@ -21,6 +21,10 @@
         >
           <el-table-column
             prop="api_key"
+            label="ID"
+          />
+          <el-table-column
+            prop="name"
             label="api_key"
           />
           <el-table-column
